@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-football"
+    }
+  },
+  "defaultProject": "angular-football",
+  "cli": {
+    "analytics": false
+  }
 }

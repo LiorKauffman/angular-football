@@ -3,7 +3,8 @@
   margin: 1.125rem 0;
 }
 
-.match-info, .match-clock {
+.match-info,
+.match-clock {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +15,9 @@
   margin-bottom: 8px;
 }
 
-.details-home, .details-away, .details-score {
+.details-home,
+.details-away,
+.details-score {
   display: flex;
   align-items: center;
 }
@@ -32,7 +35,9 @@
   max-width: 212px;
 }
 
-.winner, .loser, .draw {
+.winner,
+.loser,
+.draw {
   display: inline-block;
   height: 80%;
   width: 4px;
@@ -40,15 +45,15 @@
 }
 
 .winner {
-  background-color: #5E8C30;
+  background-color: #5e8c30;
 }
 
 .loser {
-  background-color: #BF0A2B;
+  background-color: #bf0a2b;
 }
 
 .draw {
-  background-color: #CFAC44;
+  background-color: #cfac44;
 }
 
 @media screen and (max-width: 768px) {
@@ -58,8 +63,18 @@
   .details-score {
     max-width: 112px;
   }
-  .winner, .loser, .draw {
+  .winner,
+  .loser,
+  .draw {
     width: 2px;
     margin: 0 8px;
+  }
+  .bet {
+    padding: 50px;
+    margin-left: 110px;
+  }
+  .pad {
+    padding: 50px;
+    margin-left: 100px;
   }
 }

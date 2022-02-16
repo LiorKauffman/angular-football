@@ -1,43 +1,111 @@
 <app-breadcrumb [links]="breadcrumbItems"></app-breadcrumb>
+
 <div class="match-info">
-  {{matchDetails?.competition?.name}} |
-  Matchday {{matchDetails?.season?.currentMatchday}} |
-  {{matchDetails ? moment(matchDetails?.utcDate).format("DD/MM/YYYY HH:mm") : ''}}
+  {{ matchDetails?.competition?.name }} | Matchday
+  {{ matchDetails?.season?.currentMatchday }} |
+  {{
+    matchDetails ? moment(matchDetails?.utcDate).format("DD/MM/YYYY HH:mm") : ""
+  }}
 </div>
 <div class="match-info">
-  <span class="live ngf-green" *ngIf="matchDetails?.status === 'IN_PLAY'">live</span>
-  <span class="half-time ngf-yellow" *ngIf="matchDetails?.status === 'PAUSED'">half - time</span>
-  <span *ngIf="matchDetails?.status !== 'IN_PLAY' && matchDetails?.status !== 'PAUSED'">
-    {{matchDetails?.status}}
+  <span class="live ngf-green" *ngIf="matchDetails?.status === 'IN_PLAY'"
+    >live</span
+  >
+  <span class="half-time ngf-yellow" *ngIf="matchDetails?.status === 'PAUSED'"
+    >half - time</span
+  >
+  <span
+    *ngIf="
+      matchDetails?.status !== 'IN_PLAY' && matchDetails?.status !== 'PAUSED'
+    "
+  >
+    {{ matchDetails?.status }}
   </span>
 </div>
 <div class="match-clock" title="minutes" *ngIf="matchClock">
-  {{matchClock}}'
+  {{ matchClock }}'
 </div>
 <div class="match-details-score-and-teams row">
   <div class="col details-home">
     <span>
-      {{matchDetails?.homeTeam?.name}}
+      {{ matchDetails?.homeTeam?.name }}
     </span>
   </div>
   <div class="col-md details-score">
-    <span *ngIf="matchDetails?.score?.winner === 'HOME_TEAM'" class="winner"></span>
-    <span *ngIf="matchDetails?.score?.winner === 'AWAY_TEAM'" class="loser"></span>
+    <span
+      *ngIf="matchDetails?.score?.winner === 'HOME_TEAM'"
+      class="winner"
+    ></span>
+    <span
+      *ngIf="matchDetails?.score?.winner === 'AWAY_TEAM'"
+      class="loser"
+    ></span>
     <span *ngIf="matchDetails?.score?.winner === 'DRAW'" class="draw"></span>
-    <span>{{matchDetails?.score.fullTime?.homeTeam}} - {{matchDetails?.score.fullTime?.awayTeam}}</span>
-    <span *ngIf="matchDetails?.score?.winner === 'AWAY_TEAM'" class="winner"></span>
-    <span *ngIf="matchDetails?.score?.winner === 'HOME_TEAM'" class="loser"></span>
+    <span
+      >{{ matchDetails?.score.fullTime?.homeTeam }} -
+      {{ matchDetails?.score.fullTime?.awayTeam }}</span
+    >
+    <span
+      *ngIf="matchDetails?.score?.winner === 'AWAY_TEAM'"
+      class="winner"
+    ></span>
+    <span
+      *ngIf="matchDetails?.score?.winner === 'HOME_TEAM'"
+      class="loser"
+    ></span>
     <span *ngIf="matchDetails?.score?.winner === 'DRAW'" class="draw"></span>
   </div>
   <div class="col details-away">
-    {{matchDetails?.awayTeam?.name}}
+    {{ matchDetails?.awayTeam?.name }}
   </div>
 </div>
 <div class="match-info" title="half-time score">
-  <span *ngIf="matchDetails?.score?.halfTime?.homeTeam !== null">({{matchDetails?.score?.halfTime?.homeTeam}} - {{matchDetails?.score?.halfTime?.awayTeam}})</span>
+  <span *ngIf="matchDetails?.score?.halfTime?.homeTeam !== null"
+    >({{ matchDetails?.score?.halfTime?.homeTeam }} -
+    {{ matchDetails?.score?.halfTime?.awayTeam }})</span
+  >
 </div>
 <div *ngIf="matchDetails?.venue" class="match-info">
-  venue: {{matchDetails?.venue}}
+  venue: {{ matchDetails?.venue }}
 </div>
-<app-spinner [loading]="loading"></app-spinner>
+<div
+  class="match-info bet"
+  *ngIf="
+    matchDetails?.status !== 'IN_PLAY' &&
+    matchDetails?.status !== 'PAUSED' &&
+    matchDetails?.status !== 'FINISHED' &&
+    matchDetails?.status !== 'POSTPONED'
+  "
+>
+  <input
+    class="col details-away details-score"
+    type="number"
+    name="homeTeam"
+    [(ngModel)]="homeTeam"
+  />
 
+  <input
+    class="col details-home details-score"
+    type="number"
+    name="awayTeam"
+    [(ngModel)]="awayTeam"
+  />
+</div>
+<div
+  *ngIf="
+    matchDetails?.status !== 'IN_PLAY' &&
+    matchDetails?.status !== 'PAUSED' &&
+    matchDetails?.status !== 'FINISHED' &&
+    matchDetails?.status !== 'POSTPONED'
+  "
+>
+  <div class="match-info pad">
+    <input class="" type="number" name="amount" [(ngModel)]="amount" />
+    <button (click)="bet()">BET</button>
+  </div>
+</div>
+<div>
+  <span>amount of money in the pot: {{ potBalance }} eth</span>
+</div>
+
+<app-spinner [loading]="loading"></app-spinner>
